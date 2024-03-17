@@ -1,10 +1,14 @@
 package guru.springframework.sfgpetclinic.controllers;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.time.Duration;
+
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 class IndexControllerTest {
 
@@ -31,5 +35,40 @@ class IndexControllerTest {
       indexController.oopsHandler();
     });
   }
+
+  @DisplayName("Test Timeout")
+  @Test
+  @Disabled
+  void testTimeout(){
+    // This test will fail if the provided block of code takes more than 100 milliseconds to complete.
+    // However, it will allow the block of code to complete, even if it takes longer.
+    assertTimeout(Duration.ofMillis(100), () -> {
+      Thread.sleep(5000); // This code takes 5 seconds to complete, which is more than 100 milliseconds.
+      System.out.println("I got here"); // This message will be printed even if the test fails.
+    });
+  }
+
+  @DisplayName("Test Timeout Preemptively")
+  @Test
+  @Disabled
+  void testTimeoutPrempt(){
+    // This test will fail if the provided block of code takes more than 100 milliseconds to complete.
+    // Unlike assertTimeout, this test will stop the execution of the block of code if it takes longer.
+    assertTimeoutPreemptively(Duration.ofMillis(100), () -> {
+      Thread.sleep(5000); // This code takes 5 seconds to complete, which is more than 100 milliseconds.
+      System.out.println("I got here 23434234324324234"); // This message will not be printed because the test will fail before the block of code completes.
+    });
+  }
+
+  @Test
+  void testAssumptionTrue(){
+    assumeTrue("CRISTIAN".equalsIgnoreCase(System.getenv("CRISTIAN_RUNTIME")));
+  }
+
+  @Test
+  void testAssumptionTrueAssumptionIsTrue(){
+    assumeTrue("CRISTIAN".equalsIgnoreCase("CRISTIAN"));
+  }
+
 
 }
