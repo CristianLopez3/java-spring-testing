@@ -78,3 +78,13 @@ In summary, assumptions are valuable in Java testing to condition the execution 
 conditions of the environment or available data. This can help write more robust and 
 flexible tests that adapt to different execution contexts. However, it's important to use assumptions 
 judiciously and ensure that the assumed conditions are relevant and necessary for the proper execution of the tests.
+
+### Conditional Test Execution 🚀
+
+Conditional test execution is a feature provided by JUnit 5 that allows tests to be executed based on certain conditions.
+This can be useful for running tests in specific environments, with specific data, or under specific conditions.
+Conditions like: 
+* Operating system (OS)
+* Java version (JRE)
+* Environment variables (System.getenv())
+* System properties (System.getProperty())

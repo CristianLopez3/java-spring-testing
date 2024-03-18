@@ -4,9 +4,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.*;
 
 import java.time.Duration;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
@@ -26,6 +28,7 @@ class IndexControllerTest {
     assertEquals("index", indexController.index(), "Wrong view returned");
     assertEquals("index", indexController.index(), () -> "Another expensive message " +
         "Make me only if you have to");
+    assertThat(indexController.index()).isEqualTo("index");
   }
 
   @DisplayName("Test Exception")
@@ -69,6 +72,35 @@ class IndexControllerTest {
   void testAssumptionTrueAssumptionIsTrue(){
     assumeTrue("CRISTIAN".equalsIgnoreCase("CRISTIAN"));
   }
+
+  @EnabledOnOs(OS.LINUX)
+  @Test
+  void testMeOnLinux(){}
+
+  @EnabledOnOs(OS.MAC)
+  @Test
+  void testMeOnMacOs(){}
+
+  @EnabledOnOs(OS.WINDOWS)
+  @Test
+  void testMeOnWindows(){}
+
+  @EnabledOnJre(JRE.JAVA_8)
+  @Test
+  void testMeOnJava8(){}
+
+
+  @EnabledOnJre(JRE.OTHER)
+  @Test
+  void testMeOnJava21(){}
+
+  @EnabledIfEnvironmentVariable(named = "USER", matches = "jt")
+  @Test
+  void testIfUserJT(){ }
+
+  @EnabledIfEnvironmentVariable(named = "USER", matches = "cristian")
+  @Test
+  void testIfUserCristian(){}
 
 
 }
