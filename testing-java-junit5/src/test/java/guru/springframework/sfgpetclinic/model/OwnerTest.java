@@ -15,7 +15,7 @@ class OwnerTest {
   void dependentAssertions(){
     Owner owner = new Owner(1l, "Cristian", "Lopez");
     owner.setCity("Bogota");
-    owner.setAddress("Calle 123");
+    owner.setAddress("Street 123");
 
     assertAll("Properties Test",
             () -> assertAll("Person Properties",
