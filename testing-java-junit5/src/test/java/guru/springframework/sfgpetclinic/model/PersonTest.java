@@ -2,7 +2,8 @@ package guru.springframework.sfgpetclinic.model;
 
 import guru.springframework.sfgpetclinic.ModelTest;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -14,7 +15,7 @@ class PersonTest implements ModelTest {
 
   @BeforeEach
   void setUp(){
-    person = new Person (1l, "Cristian", "Lopez");
+    person = new Person (1L, "Cristian", "Lopez");
   }
 
   @Test
@@ -32,6 +33,13 @@ class PersonTest implements ModelTest {
             () -> assertEquals("Lopez", person.getLastName(), "Last Name Failed")
     );
 
+  }
+
+  @RepeatedTest(value = 10, name = "{displayName} : {currentRepetition} - {totalRepetitions}")
+  @DisplayName("My Repeated Test")
+  @Test
+  void myRepeatedTest(){
+    // todo - implement
   }
 
 }
