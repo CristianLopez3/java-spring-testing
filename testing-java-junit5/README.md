@@ -6,6 +6,23 @@ Notes about testing an spring simulated app with JUNit and its assertions.
 > This is a guide to understand the basics of JUnit 5, if you want to know more about JUnit 5, please visit the official documentation.
 
 
+### Running test in command line
+
+When you want to run your tests in the command line, you can use the next command:
+
+```shell
+mvn cleam test # in case you have maven in your machine
+./mvnw clean test # in case you don't have maven in your machine, this is a maven wrapper
+./mvnw clean verify # verify runs integrations test.
+```
+
+>[!NOTE]
+> In order to run unitary and integration test you need surefire and failsafe plugins in your pom.xml file.z
+
+
+[JUNIT documentation](https://junit.org/junit5/docs/current/user-guide/)
+
+
 ### Messages
 
 Look at the next code: 
