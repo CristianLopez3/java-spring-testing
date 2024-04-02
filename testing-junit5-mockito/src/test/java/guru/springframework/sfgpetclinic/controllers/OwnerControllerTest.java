@@ -98,7 +98,7 @@ class OwnerControllerTest {
         assertThat("owners/ownersList").isEqualToIgnoringCase(view);
 
         // in order asserts
-        inOrder.verify(ownerService).findById(anyLong());
+        inOrder.verify(ownerService).findAllByLastNameLike(anyString());
         inOrder.verify(model).addAttribute(anyString(), anyList());
     }
 
