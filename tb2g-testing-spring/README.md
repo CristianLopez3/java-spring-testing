@@ -19,12 +19,23 @@ _Working with profiles:_
 * @Profile
 * @ActiveProfile
 
+_Property sources:_
+* @TestPropertySource
+* @Value
+
 _Annotations for stereotype classes in spring:_ 
 * @Component
 * @Primary
 * @Configuration
 * @Service
 * @Bean
+
+
+### Using Properties values
+
+You can use ".properties" files in order to provide dummy data to the application with th 
+annotation *_@Value("${variable.name}")_* in between its brackets provide the variable name in 
+the properties file, then you can consume your data with the annotation *_@TestPropertySource_*
 
 
 >[!IMPORTANT]
