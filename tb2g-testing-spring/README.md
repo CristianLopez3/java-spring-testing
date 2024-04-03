@@ -1,4 +1,38 @@
-# Spring Pet Clinic 
+# Keep in Mind
+
+In this section we are look into how to test a spring class
+
+
+### Annotations
+
+_General context:_
+* @ComponentScan("package.name")
+* @Autowired
+
+_Working with tests:_
+* @SpringJUnitConfiguration(classes = {})
+* @ContextConfiguration(classes = {})
+* @RunWith(SpringRunner.class)
+
+
+_Working with profiles:_
+* @Profile
+* @ActiveProfile
+
+_Annotations for stereotype classes in spring:_ 
+* @Component
+* @Primary
+* @Configuration
+* @Service
+* @Bean
+
+
+>[!IMPORTANT]
+> Always take a look into the documentation in order to get clear more concepts.
+
+--- 
+---
+## Spring Pet Clinic 
 
 All source code examples in the repository are for my [Online Course - Testing Spring Beginner to Guru](https://www.udemy.com/testing-spring-boot-beginner-to-guru/?couponCode=GITHUB_REPO)
 

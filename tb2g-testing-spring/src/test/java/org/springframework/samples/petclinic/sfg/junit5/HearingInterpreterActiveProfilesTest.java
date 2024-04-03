@@ -1,26 +1,33 @@
 package org.springframework.samples.petclinic.sfg.junit5;
 
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.samples.petclinic.sfg.BaseConfig;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.samples.petclinic.sfg.HearingInterpreter;
-import org.springframework.samples.petclinic.sfg.LaurenConfig;
-import org.springframework.samples.petclinic.sfg.YannyConfig;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.Assert.assertEquals;
 
-@ActiveProfiles("base-test")
-@SpringJUnitConfig(classes = {BaseConfig.class, YannyConfig.class})
-class HearingInterpreterYannyTest {
+@ActiveProfiles("yanny")
+@SpringJUnitConfig(classes = HearingInterpreterActiveProfilesTest.ConfigTest.class)
+public class HearingInterpreterActiveProfilesTest {
+
+
+    @Configuration
+    @ComponentScan("org.springframework.samples.petclinic.sfg")
+    static class ConfigTest{}
 
     @Autowired
     HearingInterpreter hearingInterpreter;
 
     @Test
-    void wordIHeader() {
+    void wordIHeard(){
         String word = hearingInterpreter.wordIHeader();
         assertEquals("Yanny", word);
     }
+
+
 }
