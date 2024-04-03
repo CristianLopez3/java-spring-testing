@@ -41,6 +41,43 @@ the properties file, then you can consume your data with the annotation *_@TestP
 >[!IMPORTANT]
 > Always take a look into the documentation in order to get clear more concepts.
 
+
+## Spring Mock Mvc
+
+## standalone
+Take a look and the next example to make a configuration for a test:
+```java
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import static org.springframework.test.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.servlet.result.MockMvcResultMatchers.*;
+
+@ExtendWith(MockitoExtension.class)
+class Test {
+    @Mock
+    SomeMock someMock;
+    @InjectMocks;
+    SomeController someController;
+    
+    MockMvc mockMvc;
+    
+    @BeforeEach
+    void setUp(){
+        mockMvc = MockMvcBuilders.standalone(someController).build();
+    }
+    
+    @Test
+    void testView(){
+        mockMvc.perform(get("/someUrl.html"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("someNameForAView"));
+    }
+}
+```
+
+
+---
+---
 --- 
 ---
 ## Spring Pet Clinic 
