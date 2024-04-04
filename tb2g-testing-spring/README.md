@@ -8,6 +8,7 @@ In this section we are look into how to test a spring class
 _General context:_
 * @ComponentScan("package.name")
 * @Autowired
+* @Captor
 
 _Working with tests:_
 * @SpringJUnitConfiguration(classes = {})
@@ -30,6 +31,14 @@ _Annotations for stereotype classes in spring:_
 * @Service
 * @Bean
 
+### Methods
+Take a look to the next _methods_ to work with JUnit and Spring Framework testing:
+* perform()
+* andExpect()
+* mode()
+* view()
+* status()
+* params()
 
 ### Using Properties values
 
