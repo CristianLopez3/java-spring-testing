@@ -9,16 +9,13 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.samples.petclinic.model.Owner;
 import org.springframework.samples.petclinic.service.ClinicService;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.web.SpringJUnitWebConfig;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
@@ -53,6 +50,53 @@ class OwnerControllerTest {
     @AfterEach
     void tearDown(){
         reset(clinicService);
+    }
+
+    @Test
+    void processUpdateOwnerFormValid() throws Exception{
+        mockMvc.perform(post("/owners/{ownerId}/edit", 1)
+                    .param("firstName", "Cristian")
+                    .param("lastName", "Lopez")
+                    .param("address", "Kr 5 AV jimenez")
+                    .param("city", "Ibague")
+                    .param("telephone", "000000000"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/owners/{ownerId}"));
+    }
+
+    @Test
+    void processUpdateOwnerFormNotValid() throws Exception{
+        mockMvc.perform(post("/owners/{ownerId}/edit", 1)
+                        .param("firstName", "Cristian")
+                        .param("lastName", "Lopez")
+                        .param("telephone", "000000000"))
+                .andExpect(status().isOk())
+                .andExpect(view().name(VIEWS_OWNER_CREATE_OR_UPDATE_FORM));
+    }
+
+    @Test
+    void processCreationForm() throws Exception {
+        mockMvc.perform(post("/owners/new")
+                    .param("firstName", "Cristian")
+                    .param("lastName", "Lopez")
+                    .param("address", "Kr 13 No 33")
+                    .param("city", "Medellin")
+                    .param("telephone", "3133221232"))
+                .andExpect(status().is3xxRedirection());
+    }
+
+    @Test
+    void processCreationFormHasErrors() throws Exception {
+        mockMvc.perform(post("/owners/new")
+                        .param("firstName", "Cristian")
+                        .param("lastName", "Lopez")
+                        .param("Address", "Kr 13 No 33")
+                )
+                .andExpect(status().isOk())
+                .andExpect(model().attributeHasErrors("owner"))
+                .andExpect(model().attributeHasFieldErrors("owner", "city"))
+                .andExpect(model().attributeHasFieldErrors("owner","telephone"))
+                .andExpect(view().name(VIEWS_OWNER_CREATE_OR_UPDATE_FORM));
     }
 
 
@@ -90,13 +134,7 @@ class OwnerControllerTest {
         then(clinicService).should().findOwnerByLastName(anyString());
     }
 
-    @Test
-    void processCreationForm() throws Exception {
-        mockMvc.perform(post("/owners/new", new Owner()))
-                .andExpect(status().isOk())
-                .andExpect(model().attributeExists("owner"))
-                .andExpect(view().name(VIEWS_OWNER_CREATE_OR_UPDATE_FORM));
-    }
+
 
     @Test
     void initCreationForm() throws Exception {
