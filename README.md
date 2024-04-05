@@ -10,4 +10,10 @@ Unit testing and best practices with java and spring boot.
 * Test Driven Development
 * Getting Started with JUnit 5
 * Testing Java with JUnit 5
-* Advanced JUnit Testing
+* Advanced JUnit Testin
+
+### Wiremock
+> [Course code](https://github.com/springframeworkguru/tsbb2b-sfg-brewery/tree/testing-w-wiremock)
+
+Wiremock is a powerful tool to test your rest clients and responses, go
+and take a look in folder springboot-mvc in order to know a little more.
