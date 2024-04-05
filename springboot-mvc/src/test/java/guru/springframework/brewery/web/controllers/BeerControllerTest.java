@@ -10,10 +10,7 @@ import guru.springframework.brewery.web.model.BeerDto;
 import guru.springframework.brewery.web.model.BeerPagedList;
 import guru.springframework.brewery.web.model.BeerStyleEnum;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 
@@ -39,6 +36,7 @@ import static org.mockito.ArgumentMatchers.any;
 
 import static org.hamcrest.core.Is.*;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.reset;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -70,6 +68,10 @@ class BeerControllerTest {
 
     }
 
+    @AfterEach
+    void tearDown(){
+        reset(beerService);
+    }
 
     @Test
     void testGetBeerById() throws Exception{
