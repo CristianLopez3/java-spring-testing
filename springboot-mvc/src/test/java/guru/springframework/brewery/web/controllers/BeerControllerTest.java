@@ -14,12 +14,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -43,15 +43,13 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
-@ExtendWith(MockitoExtension.class)
+@WebMvcTest(BeerController.class)
 class BeerControllerTest {
 
-    @Mock
+    @MockBean
     BeerService beerService;
 
-    @InjectMocks
-    BeerController beerController;
-
+    @Autowired
     MockMvc mockMvc;
 
     BeerDto validBeer;
@@ -70,9 +68,6 @@ class BeerControllerTest {
                 .lastModifiedDate(OffsetDateTime.now())
                 .build();
 
-        mockMvc = MockMvcBuilders.standaloneSetup(beerController)
-                .setMessageConverters(jackson2HttpMessageConverter())
-                .build();
     }
 
 
@@ -144,15 +139,6 @@ class BeerControllerTest {
 
     }
 
-    public MappingJackson2HttpMessageConverter jackson2HttpMessageConverter(){
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
-        mapper.configure(SerializationFeature.WRITE_DATE_TIMESTAMPS_AS_NANOSECONDS, true);
-        mapper.setSerializationInclusion(JsonInclude.Include.ALWAYS);
 
-        mapper.registerModule(new JavaTimeModule());
-
-        return new MappingJackson2HttpMessageConverter(mapper);
-    }
 
 }
